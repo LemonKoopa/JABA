@@ -16,7 +16,7 @@ function checkAlive(activeStart, activeStop) { // Here we go baby
 
     if (setStartTime <= dateCurrent && setStopTime >= dateCurrent) {
 		return true;
-	} else { 
-		return false; 
+	} else {
+		return false;
 	}
 }
