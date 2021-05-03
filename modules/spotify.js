@@ -7,7 +7,10 @@ function playerSpotify (Volume, Shuffle, Loop, isPlaying, Position, Advertisemen
 			'Loop':'button[data-testid="control-button-repeat"]',
 			'isPlaying':'button[data-testid="control-button-pause"]',
 			'Position':'div[data-testid="playback-position"]',
-			'Advertisement':'a[data-testid="track-info-advertiser"]'
+			'Advertisement':'a[data-testid="track-info-advertiser"]',
+			'elementReady':'div[data-testid="playlist-tracklist"]',
+			'elementContainer':'div[class="Root__now-playing-bar"]',
+			'elementNowPlaying':'div[data-testid="now-playing-widget"]'
 		}
     
 		this.elementSelectors.Track = {
