@@ -74,13 +74,13 @@ class playerApple {
 
   // Callable Functions - History
   valuesStringify() {
-    console.log('[JABA-DEBUG] Function [valuesStringify] Result [' + +']');
+    console.log('[JABA-DEBUG] Function [valuesStringify] Result [' +  + ']');
     let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration];
     return x;
   }
 
   valuesUpdate() {
-    console.log('[JABA-DEBUG] Function [valuesUpdate]');
+		console.log('[JABA-DEBUG] Function [valuesUpdate]');
     this.historyPrevious = this.valuesStringify();
     this.Volume = this.getVolume();
     this.Shuffle = this.getShuffle();
@@ -93,7 +93,7 @@ class playerApple {
     this.Position = this.getPosition();
     this.Duration = this.getDuration();
     this.historyCurrent = this.valuesStringify();
-
+    
     if (this.historyPrevious.toString() == this.historyCurrent.toString()) {
       return
     }
@@ -129,11 +129,11 @@ class playerApple {
   // Callable Functions - Update Stats - Track-specific Values
   getArtist() {
     console.log('[JABA-INFO] Artist ' + this.Artist);
-    return getElementBySelector(this.elementSelector.Artist) ? .innerText;
+    return getElementBySelector(this.elementSelector.Artist)?.innerText;
   }
   getTitle() {
     console.log('[JABA-INFO] Title ' + this.Title);
-    return getElementBySelector(this.elementSelector.Title) ? .innerText;
+    return getElementBySelector(this.elementSelector.Title)?.innerText;
   }
   getPosition() {
     console.log('[JABA-INFO] Position ' + this.Position);
