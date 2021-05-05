@@ -1,6 +1,10 @@
 class playerApple {
   constructor(Volume, Shuffle, Loop, isPlaying, isInactive, Advertisement, Artist, Title, Position, Duration, historyPrevious, historyCurrent) {
 
+    // Initialize History
+    this.historyPrevious = [];
+    this.historyCurrent = [];
+
     // Global values
     this.Volume = Volume;
     this.Shuffle = Shuffle;
@@ -14,10 +18,6 @@ class playerApple {
     this.Title = Title;
     this.Duration = Duration;
     this.Position = Position;
-
-    // Initialize History
-    this.historyPrevious = [];
-    this.historyCurrent = [];
 
     // Queries
     this.elementSelector = {
@@ -74,8 +74,8 @@ class playerApple {
 
   // Callable Functions - History
   valuesStringify() {
-    console.log('[JABA-DEBUG] Function [valuesStringify] Result [' +  + ']');
     let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration];
+    console.log('[JABA-DEBUG] Function [valuesStringify] Result [' + x + ']');
     return x;
   }
 
@@ -94,53 +94,45 @@ class playerApple {
     this.Duration = this.getDuration();
     this.historyCurrent = this.valuesStringify();
     
-    if (this.historyPrevious.toString() == this.historyCurrent.toString()) {
-      return
+	// Display information to console
+    if (this.historyPrevious.toString() !== this.historyCurrent.toString()) {
+      let stringInfo = `[JABA-INFO] Volume (${this.Volume}) Shuffle (${this.Shuffle}) Loop (${this.Loop}) | Artist (${this.Artist}) Track (${this.Title}) Position (${this.Position}) Duration (${this.Duration}) | isPlaying (${this.isPlaying}) isInactive (${this.isInactive})`
+      console.log(stringInfo);
     }
 
   }
 
   // Callable Functions - Update Stats - Global Value
   getVolume() {
-    console.log('[JABA-INFO] Volume ' + this.Volume);
     return getElementBySelector(this.elementSelector.Volume).getAttribute('style').slice(10).split("%")[0];
   }
   getShuffle() {
-    console.log('[JABA-INFO] Shuffle ' + this.Shuffle);
     return getElementBySelector(this.elementSelector.Shuffle).getAttribute('aria-checked') === "true";
   }
   getLoop() {
-    console.log('[JABA-INFO] Loop ' + this.Loop);
     return document.querySelectorAll(this.elementSelector.Loop).length > 0;
   }
   getIsPlaying() {
-    console.log('[JABA-INFO] isPlaying ' + this.isPlaying);
     return document.querySelectorAll(this.elementSelector.isPlaying).length > 0;
   }
   getIsInactive() {
-    console.log('[JABA-INFO] isInactive ' + this.isInactive);
     return document.querySelectorAll(this.elementSelector.isInactive).length > 0;
   }
   getAdvertisement() {
-    console.log('[JABA-INFO] Advertisement ' + this.Advertisement);
     return document.querySelectorAll(this.elementSelector.Advertisement).length > 0;
   }
 
   // Callable Functions - Update Stats - Track-specific Values
   getArtist() {
-    console.log('[JABA-INFO] Artist ' + this.Artist);
     return getElementBySelector(this.elementSelector.Artist)?.innerText;
   }
   getTitle() {
-    console.log('[JABA-INFO] Title ' + this.Title);
     return getElementBySelector(this.elementSelector.Title)?.innerText;
   }
   getPosition() {
-    console.log('[JABA-INFO] Position ' + this.Position);
     return convertTime2Seconds(getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow'));
   }
   getDuration() {
-    console.log('[JABA-INFO] Duration ' + this.Duration);
     return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).getAttribute('aria-valuemax'));
   }
 
