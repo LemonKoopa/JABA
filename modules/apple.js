@@ -110,16 +110,16 @@ class playerApple {
     return getElementBySelector(this.elementSelector.Shuffle).getAttribute('aria-checked') === "true";
   }
   getLoop() {
-    return document.querySelectorAll(this.elementSelector.Loop).length > 0;
+    return getElementBySelectors(this.elementSelector.Loop).length > 0;
   }
   getIsPlaying() {
-    return document.querySelectorAll(this.elementSelector.isPlaying).length > 0;
+    return getElementBySelectors(this.elementSelector.isPlaying).length > 0;
   }
   getIsInactive() {
-    return document.querySelectorAll(this.elementSelector.isInactive).length > 0;
+    return getElementBySelectors(this.elementSelector.isInactive).length > 0;
   }
   getAdvertisement() {
-    return document.querySelectorAll(this.elementSelector.Advertisement).length > 0;
+    return getElementBySelectors(this.elementSelector.Advertisement).length > 0;
   }
 
   // Callable Functions - Update Stats - Track-specific Values
