@@ -80,7 +80,7 @@ class playerSpotify {
   }
 
   valuesUpdate() {
-    console.log('[JABA-DEBUG] Function [valuesUpdate]')
+    console.debug('[JABA] Function [valuesUpdate]')
     this.historyPrevious = this.valuesStringify()
     this.Volume = this.getVolume()
     this.Shuffle = this.getShuffle()
