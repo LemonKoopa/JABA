@@ -22,7 +22,7 @@ class playerSoundCloud {
     // Queries
     this.elementSelector = {
       'elementReady': 'div[class="listenDetails__trackList"]',
-      'elementContainer': 'div[class="playControls g-z-index-control-bar m-visible"]',
+      'elementContainer': 'div[class="playControls__elements"]',
       'elementNowPlaying': 'div[class="playControls__soundBadge"]',
       'Volume': 'div[class="volume__sliderWrapper"]',
       'Shuffle': 'button[class="shuffleControl sc-ir"]',
@@ -32,8 +32,8 @@ class playerSoundCloud {
       'Advertisement': 'a[data-testid="track-info-advertiser"]', // come back to this -- doesn't detect ads
       'Artist': 'a[class="playbackSoundBadge__lightLink sc-link-light sc-link-secondary sc-truncate"]',
       'Title': 'a[class="playbackSoundBadge__titleLink sc-truncate"]',
-      'Position': 'div[class="playbackTimeline__timePassed"]',
-      'Duration': 'div[class="playbackTimeline__duration"]',
+      'Position': 'div[class="playbackTimeline__timePassed"] > span:nth-child(2)',
+      'Duration': 'div[class="playbackTimeline__duration"] > span:nth-child(2)',
       'buttonVolume': 'div[class="volume__sliderWrapper"]',
       'buttonShuffle': 'button[class="shuffleControl sc-ir"]',
       'buttonLoop': 'button[class="repeatControl sc-ir m-none"]',
@@ -75,12 +75,12 @@ class playerSoundCloud {
   // Callable Functions - History
   valuesStringify() {
     let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration];
-    console.log('[JABA-DEBUG] Function [valuesStringify] Result [' + x + ']');
+    console.debug('[JABA] Function [valuesStringify] Result [' + x + ']');
     return x;
   }
 
   valuesUpdate() {
-    console.log('[JABA-DEBUG] Function [valuesUpdate]');
+    console.debug('[JABA] Function [valuesUpdate]');
     this.historyPrevious = this.valuesStringify();
     this.Volume = this.getVolume();
     this.Shuffle = this.getShuffle();
@@ -96,8 +96,8 @@ class playerSoundCloud {
 		
 	// Display information to console
     if (this.historyPrevious.toString() !== this.historyCurrent.toString()) {
-      let stringInfo = `[JABA-INFO] Volume (${this.Volume}) Shuffle (${this.Shuffle}) Loop (${this.Loop}) | Artist (${this.Artist}) Track (${this.Title}) Position (${this.Position}) Duration (${this.Duration}) | isPlaying (${this.isPlaying}) isInactive (${this.isInactive})`
-      console.log(stringInfo);
+      let stringInfo = `[JABA] Volume (${this.Volume}) Shuffle (${this.Shuffle}) Loop (${this.Loop}) | Artist (${this.Artist}) Track (${this.Title}) Position (${this.Position}) Duration (${this.Duration}) | isPlaying (${this.isPlaying}) isInactive (${this.isInactive})`
+      console.info(stringInfo);
     }
   
   }
@@ -130,10 +130,10 @@ class playerSoundCloud {
     return getElementBySelector(this.elementSelector.Title).getAttribute('title');
   }
   getPosition() {
-    return convertTime2Seconds(getElementBySelector(this.elementSelector.Position).text);
+    return convertTime2Seconds(getElementBySelector(this.elementSelector.Position).innerText);
   }
   getDuration() {
-    return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).text);
+    return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).innerText);
   }
 
 }
