@@ -15,6 +15,10 @@ class playerApple {
     this.Duration = Duration;
     this.Position = Position;
 
+    // Initialize History
+    this.historyPrevious = [];
+    this.historyCurrent = [];
+
     // Queries
     this.elementSelector = {
       'elementReady': 'div[aria-label="Media Controls"]',
@@ -39,10 +43,6 @@ class playerApple {
       'buttonNext': 'button[aria-label="Next"]',
       'buttonPlaylistPlay': 'button[aria-label="Shuffle"]'
     }
-
-    // Initialize History
-    this.historyPrevious = [];
-    this.historyCurrent = [];
 
   }
 
@@ -80,7 +80,7 @@ class playerApple {
   }
 
   valuesUpdate() {
-		console.log('[JABA-DEBUG] Function [valuesUpdate]');
+    console.log('[JABA-DEBUG] Function [valuesUpdate]');
     this.historyPrevious = this.valuesStringify();
     this.Volume = this.getVolume();
     this.Shuffle = this.getShuffle();
