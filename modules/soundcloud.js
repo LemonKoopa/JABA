@@ -32,7 +32,7 @@ class playerSoundCloud {
       'Advertisement': 'a[data-testid="track-info-advertiser"]', // come back to this -- doesn't detect ads
       'Artist': 'a[class="playbackSoundBadge__lightLink sc-link-light sc-link-secondary sc-truncate"]',
       'Title': 'a[class="playbackSoundBadge__titleLink sc-truncate"]',
-      'Position': 'div[class="playbackTimeline__timePassed"] > span:nth-child(2)',
+      'Position': 'div[class="playbackTimeline__progressWrapper"]', // new
       'Duration': 'div[class="playbackTimeline__duration"] > span:nth-child(2)',
       'buttonVolume': 'div[class="volume__sliderWrapper"]',
       'buttonShuffle': 'button[class="shuffleControl sc-ir"]',
@@ -130,7 +130,7 @@ class playerSoundCloud {
     return getElementBySelector(this.elementSelector.Title).getAttribute('title');
   }
   getPosition() {
-    return convertTime2Seconds(getElementBySelector(this.elementSelector.Position).innerText);
+    return getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow');
   }
   getDuration() {
     return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).innerText);
