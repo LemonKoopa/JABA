@@ -74,9 +74,9 @@ class playerSpotify {
 
   // Callable Functions - History
   valuesStringify() {
-    let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration];
-    console.debug('[JABA] Function [valuesStringify] Result [' + x + ']');
-    return x;
+    let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration]
+    console.debug('[JABA] Function [valuesStringify] Result [' + x + ']')
+    return x
   }
 
   valuesUpdate() {
