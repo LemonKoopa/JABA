@@ -1,7 +1,18 @@
 function stripSelector(Selector) {
-  let stripPre = Selector.split("[").pop()
+  // [0] = Name
+  // [1] = Selector Type
+  // [2] = Selector Identifier
+  let xName = Selector[0]
+  let xType = Selector[1].split("[")[0]
+  
+  // Fetch the Identifier
+  let stripPre = Selector[1].split("[").pop()
   let stripPost = stripPre.split("]")[0]
-  return stripPost
+  let xIdentifier = stripPost
+  
+  let X = [xName, xType, xIdentifier]
+  
+  return X
 }
 
 function getElementBySelector(Selector) {
