@@ -124,16 +124,16 @@ class playerSpotify {
 
   // Callable Functions - Update Stats - Track-specific Values
   getArtist() {
-    return getElementBySelector(this.elementSelector.Artist).text
+    return getElementBySelector(this.elementSelector.Artist).innerText
   }
   getTitle() {
-    return getElementBySelector(this.elementSelector.Title).text
+    return getElementBySelector(this.elementSelector.Title).innerText
   }
   getPosition() {
-    return convertTime2Seconds(getElementBySelector(this.elementSelector.Position).text)
+    return convertTime2Seconds(getElementBySelector(this.elementSelector.Position).innerText)
   }
   getDuration() {
-    return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).text)
+    return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).innerText)
   }
 
 }

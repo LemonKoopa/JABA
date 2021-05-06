@@ -2,6 +2,7 @@ function stripSelector(Selector) {
   // [0] = Name
   // [1] = Selector Type
   // [2] = Selector Identifier
+  
   let xName = Selector[0]
   let xType = Selector[1].split("[")[0]
   
@@ -15,16 +16,40 @@ function stripSelector(Selector) {
   return X
 }
 
+let elementCacheArray = {'': ''}
+
+function cacheObject(Selector) {
+  let objectValue = null
+  if (elementCacheArray.hasOwnProperty(Selector)) {
+    objectValue = elementCacheArray[Selector]
+    console.debug('[JABA] [cacheObject] (' + Selector + ') is cached |returning cached Object')
+  } else {
+    try {
+      objectValue = document.querySelector(Selector)
+      elementCacheArray[Selector] = objectValue
+      console.debug('[JABA] [cacheObject] (' + Selector + ') is not cached | Caching and returning Object')
+    } catch(error) {
+      console.debug('[JABA] [cacheObject] Error => ' + error + '')
+    }
+  }
+  return objectValue
+}
+
 function getElementBySelector(Selector) {
-  var element = document.querySelectorAll(Selector)
-  console.debug('[JABA] [getElementBySelector] => (' + Selector + ') Found (' + element.length + ')')
-  return element[0]
+  var element = cacheObject(Selector)
+  console.debug('[JABA] [getElementBySelector] => (' + Selector + ')')
+  return element
 }
 
 function getElementBySelectors(Selector) {
-  var element = document.querySelectorAll(Selector)
-  console.debug('[JABA] [getElementBySelectors] => (' + Selector + ') Found (' + element.length + ')')
-  return element
+  let element = null
+  try {
+    element = document.querySelectorAll(Selector)
+    console.debug('[JABA] [getElementBySelectors] => (' + Selector + ') Found (' + element.length + ')')
+  } catch(error) {
+    console.debug('[JABA] [getElementBySelectors] Error => ' + error + '')
+  }
+  return element[0]
 }
 
 function controlClick(x) {
