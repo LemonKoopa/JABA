@@ -44,7 +44,7 @@ function existsInArray(node, array) {
   // Iterate through array for comparison
   Object.entries(array).find(item => {
     let arrayItem = stripSelector(item)[2]
-    let domItem = node.outerHTML
+    let domItem = node['outerHTML']
     if (domItem.includes(arrayItem)) {
       console.debug('[JABA] [existsInArray] => Matched. ' + arrayItem + ' == ' + domItem + '')
       check = true
