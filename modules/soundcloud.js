@@ -2,22 +2,22 @@ class playerSoundCloud {
   constructor(Volume, Shuffle, Loop, isPlaying, isInactive, Advertisement, Artist, Title, Position, Duration, historyPrevious, historyCurrent) {
 
     // Initialize History
-    this.historyPrevious = [];
-    this.historyCurrent = [];
+    this.historyPrevious = []
+    this.historyCurrent = []
 
     // Global values
-    this.Volume = Volume;
-    this.Shuffle = Shuffle;
-    this.Loop = Loop;
-    this.isPlaying = isPlaying;
-    this.isInactive = isInactive;
-    this.Advertisement = Advertisement;
+    this.Volume = Volume
+    this.Shuffle = Shuffle
+    this.Loop = Loop
+    this.isPlaying = isPlaying
+    this.isInactive = isInactive
+    this.Advertisement = Advertisement
 
     // Track-specific values
-    this.Artist = Artist;
-    this.Title = Title;
-    this.Duration = Duration;
-    this.Position = Position;
+    this.Artist = Artist
+    this.Title = Title
+    this.Duration = Duration
+    this.Position = Position
 
     // Queries
     this.elementSelector = {
@@ -48,51 +48,51 @@ class playerSoundCloud {
 
   // Callable Functions - Controls
   controlsVolume() {
-    controlClick(this.elementSelector.buttonVolume);
+    controlClick(this.elementSelector.buttonVolume)
   }
   controlsShuffle() {
-    controlClick(this.elementSelector.buttonShuffle);
+    controlClick(this.elementSelector.buttonShuffle)
   }
   controlsLoop() {
-    controlClick(this.elementSelector.buttonLoop);
+    controlClick(this.elementSelector.buttonLoop)
   }
   controlsPrevious() {
-    controlClick(this.elementSelector.buttonPrevious);
+    controlClick(this.elementSelector.buttonPrevious)
   }
   controlsPause() {
-    controlClick(this.elementSelector.buttonPause);
+    controlClick(this.elementSelector.buttonPause)
   }
   controlsPlay() {
-    controlClick(this.elementSelector.buttonPlay);
+    controlClick(this.elementSelector.buttonPlay)
   }
   controlsNext() {
-    controlClick(this.elementSelector.buttonNext);
+    controlClick(this.elementSelector.buttonNext)
   }
   controlsPlaylistPlay() {
-    controlClick(this.elementSelector.buttonPlaylistPlay);
+    controlClick(this.elementSelector.buttonPlaylistPlay)
   }
 
   // Callable Functions - History
   valuesStringify() {
-    let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration];
-    console.debug('[JABA] Function [valuesStringify] Result [' + x + ']');
-    return x;
+    let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration]
+    console.debug('[JABA] Function [valuesStringify] Result [' + x + ']')
+    return x
   }
 
   valuesUpdate() {
-    console.debug('[JABA] Function [valuesUpdate]');
-    this.historyPrevious = this.valuesStringify();
-    this.Volume = this.getVolume();
-    this.Shuffle = this.getShuffle();
-    this.Loop = this.getLoop();
-    this.isPlaying = this.getIsPlaying();
-    this.isInactive = this.getIsInactive();
-    this.Advertisement = this.getAdvertisement();
-    this.Artist = this.getArtist();
-    this.Title = this.getTitle();
-    this.Position = this.getPosition();
-    this.Duration = this.getDuration();
-    this.historyCurrent = this.valuesStringify();
+    console.debug('[JABA] Function [valuesUpdate]')
+    this.historyPrevious = this.valuesStringify()
+    this.Volume = this.getVolume()
+    this.Shuffle = this.getShuffle()
+    this.Loop = this.getLoop()
+    this.isPlaying = this.getIsPlaying()
+    this.isInactive = this.getIsInactive()
+    this.Advertisement = this.getAdvertisement()
+    this.Artist = this.getArtist()
+    this.Title = this.getTitle()
+    this.Position = this.getPosition()
+    this.Duration = this.getDuration()
+    this.historyCurrent = this.valuesStringify()
 		
 	// Display information to console
     if (this.historyPrevious.toString() !== this.historyCurrent.toString()) {
@@ -104,36 +104,36 @@ class playerSoundCloud {
   
   // Callable Functions - Update Stats - Global Value
   getVolume() {
-    return getElementBySelector(this.elementSelector.Volume).getAttribute('aria-valuenow') * 100;
+    return getElementBySelector(this.elementSelector.Volume).getAttribute('aria-valuenow') * 100
   }
   getShuffle() {
-    return getElementBySelector(this.elementSelector.Shuffle).getAttribute('class') === "shuffleControl sc-ir m-shuffling";
+    return getElementBySelector(this.elementSelector.Shuffle).getAttribute('class') === "shuffleControl sc-ir m-shuffling"
   }
   getLoop() {
-    return getElementBySelector(this.elementSelector.Loop).getAttribute('class') === "repeatControl sc-ir m-one";
+    return getElementBySelector(this.elementSelector.Loop).getAttribute('class') === "repeatControl sc-ir m-one"
   }
   getIsPlaying() {
-    return getElementBySelectors(this.elementSelector.isPlaying).length > 0;
+    return getElementBySelectors(this.elementSelector.isPlaying).length > 0
   }
   getIsInactive() {
-    return getElementBySelectors(this.elementSelector.isInactive).length === 0;
+    return getElementBySelectors(this.elementSelector.isInactive).length === 0
   }
   getAdvertisement() {
-    return getElementBySelectors(this.elementSelector.Advertisement).length > 0;
+    return getElementBySelectors(this.elementSelector.Advertisement).length > 0
   }
 
   // Callable Functions - Update Stats - Track-specific Values
   getArtist() {
-    return getElementBySelector(this.elementSelector.Artist).getAttribute('title');
+    return getElementBySelector(this.elementSelector.Artist).getAttribute('title')
   }
   getTitle() {
-    return getElementBySelector(this.elementSelector.Title).getAttribute('title');
+    return getElementBySelector(this.elementSelector.Title).getAttribute('title')
   }
   getPosition() {
-    return getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow');
+    return getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow')
   }
   getDuration() {
-    return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).innerText);
+    return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).innerText)
   }
 
 }
