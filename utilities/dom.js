@@ -37,3 +37,22 @@ function controlClick(x) {
     return false
   }
 }
+
+function existsInArray(node, array) {
+  let check = false
+
+  // Iterate through array for comparison
+  Object.entries(array).find(item => {
+    let arrayItem = stripSelector(item)[2]
+    let domItem = node.outerHTML
+    if (domItem.includes(arrayItem)) {
+      console.log('[JABA] [existsInArray] Matched. ' + arrayItem + ' == ' + domItem + '')
+      check = true
+      return true
+    } else {
+      console.log('[JABA] [existsInArray] No Match. ' + arrayItem + ' != ' + domItem + '')
+      return false
+    }
+  })
+  return check
+}
