@@ -46,11 +46,11 @@ function existsInArray(node, array) {
     let arrayItem = stripSelector(item)[2]
     let domItem = node.outerHTML
     if (domItem.includes(arrayItem)) {
-      console.log('[JABA] [existsInArray] Matched. ' + arrayItem + ' == ' + domItem + '')
+      console.debug('[JABA] [existsInArray] Matched. ' + arrayItem + ' == ' + domItem + '')
       check = true
       return true
     } else {
-      console.log('[JABA] [existsInArray] No Match. ' + arrayItem + ' != ' + domItem + '')
+      console.debug('[JABA] [existsInArray] No Match. ' + arrayItem + ' != ' + domItem + '')
       return false
     }
   })
