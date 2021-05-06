@@ -1,3 +1,9 @@
+function stripSelector(Selector) {
+  let stripPre = Selector.split("[").pop()
+  let stripPost = stripPre.split("]")[0]
+  return stripPost
+}
+
 function getElementBySelector(Selector) {
   var element = document.querySelectorAll(Selector)
   console.debug('[JABA] Function (getElementBySelector) Value (' + Selector + ') Found (' + element.length + ')')
