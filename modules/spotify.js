@@ -1,24 +1,23 @@
 class playerSpotify {
-  constructor(Volume, Shuffle, Loop, isPlaying, isInactive, Advertisement, Artist, Title, Position, Duration, historyPrevious, historyCurrent) {
-
-    // Initialize History
-    this.historyPrevious = []
-    this.historyCurrent = []
+  constructor() {
 
     // Global values
-    this.Volume = Volume
-    this.Shuffle = Shuffle
-    this.Loop = Loop
-    this.isPlaying = isPlaying
-    this.isInactive = isInactive
-    this.Advertisement = Advertisement
+    this.Volume = null
+    this.Shuffle = null
+    this.Loop = null
+    this.isPlaying = null
+    this.isInactive = null
+    this.Advertisement = null
 
     // Track-specific values
-    this.Artist = Artist
-    this.Title = Title
-    this.Duration = Duration
-    this.Position = Position
-
+    this.Artist = null
+    this.Title = null
+    this.Duration = null
+    this.Position = null
+	
+	// Initialize History
+    this.history = {}
+	
     // Queries
     this.elementSelector = {
       'elementReady': 'div[data-testid="playlist-tracklist"]',
@@ -73,15 +72,39 @@ class playerSpotify {
   }
 
   // Callable Functions - History
-  valuesStringify() {
-    let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration]
-    console.debug('[JABA] Function [valuesStringify] Result [' + x + ']')
-    return x
+  updateHistory() {
+    this.history = {
+      Volume: this.Volume,
+      Shuffle: this.Shuffle,
+      Loop: this.Loop,
+      isPlaying: this.isPlaying,
+      isInactive: this.isInactive,
+      Advertisement: this.Advertisement,
+      Artist: this.Artist,
+      Title: this.Title,
+      Position: this.Position,
+      Duration: this.Duration
+    }
+  }
+  
+  // Returns an object array of changed values { key: 'value' }
+  hasChanged() {
+    let changedValues = {}
+    Object.entries(this).forEach(entry => {
+      let entryKey = entry[0]
+      let entryValue = entry[1]
+      if (entryKey == 'history') { return }
+      if (entryKey == 'elementSelector') { return }
+      if (entryValue == this.history[entryKey]) { return }
+      changedValues[entryKey] = entryValue
+    })
+    return changedValues
   }
 
+  // Callable Functions - History - Update values from DOM
   valuesUpdate() {
-    console.debug('[JABA] Function [valuesUpdate]')
-    this.historyPrevious = this.valuesStringify()
+    this.updateHistory()
+    
     this.Volume = this.getVolume()
     this.Shuffle = this.getShuffle()
     this.Loop = this.getLoop()
@@ -92,14 +115,10 @@ class playerSpotify {
     this.Title = this.getTitle()
     this.Position = this.getPosition()
     this.Duration = this.getDuration()
-    this.historyCurrent = this.valuesStringify()
-		
-	// Display information to console
-    if (this.historyPrevious.toString() !== this.historyCurrent.toString()) {
-      let stringInfo = `[JABA] Volume (${this.Volume}) Shuffle (${this.Shuffle}) Loop (${this.Loop}) | Artist (${this.Artist}) Track (${this.Title}) Position (${this.Position}) Duration (${this.Duration}) | isPlaying (${this.isPlaying}) isInactive (${this.isInactive})`
-      console.info(stringInfo)
-    }
-  
+	// Display information to console if anything has updated
+    if (!!Object.keys(this.hasChanged()).length) {
+    console.info('[JABA] ', this.hasChanged())
+	  }
   }
   
   // Callable Functions - Update Stats - Global Value
