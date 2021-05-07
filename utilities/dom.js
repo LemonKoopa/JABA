@@ -41,8 +41,13 @@ function cacheObject(Selector) {
 }
 
 function getElementBySelector(Selector) {
-  var element = cacheObject(Selector)
-  console.debug('[JABA] [getElementBySelector] => (' + Selector + ')')
+  let element = null
+  try {
+    element = cacheObject(Selector)
+    console.debug('[JABA] [getElementBySelector] [SUCCESS] => (' + Selector + ')')
+  } catch(error) {
+    console.debug('[JABA] [getElementBySelector] [ERROR=' + error + '] => (' + Selector + ')')
+  }
   return element
 }
 
@@ -60,10 +65,10 @@ function getElementBySelectors(Selector) {
 function controlClick(x) {
   try {
     getElementBySelector(x).click()
-    console.debug('[JABA] [controlClick] => [' + x + '] | [SUCCESS]')
+    console.debug('[JABA] [controlClick] [SUCCESS] => [' + x + ']')
     return true
   } catch (error) {
-    console.debug('[JABA] [controlClick] => [' + x + '] | [FAILURE]')
+    console.debug('[JABA] [controlClick] [ERROR=' + error + '] => [' + x + ']')
     return false
   }
 }
