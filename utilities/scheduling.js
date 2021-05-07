@@ -9,7 +9,7 @@ function convertDate(date) { // convert Date object into a String
 	return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0])
 }
 
-function checkAlive(activeStart, activeStop) { // Here we go baby
+function checkAlive(activeStart, activeStop) { // HH:MM:SS Military format
 	let dateCurrent  = new Date();
 	let setStartTime = new Date(convertDate(dateCurrent) + " " + activeStart)
 	let setStopTime  = new Date(convertDate(dateCurrent) + " " + activeStop)
