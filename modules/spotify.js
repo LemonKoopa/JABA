@@ -115,9 +115,9 @@ class playerSpotify {
     this.Title = this.getTitle()
     this.Position = this.getPosition()
     this.Duration = this.getDuration()
-	// Display information to console if anything has updated
+	  // Display information to console if anything has updated
     if (!!Object.keys(this.hasChanged()).length) {
-    console.info('[JABA] ', this.hasChanged())
+    //console.info('[JABA] ', this.hasChanged())
 	  }
   }
   
@@ -138,7 +138,7 @@ class playerSpotify {
     return !getElementBySelector(this.elementSelector.isInactive)
   }
   getAdvertisement() {
-    return !getElementBySelector(this.elementSelector.Advertisement)
+    return !!getElementBySelector(this.elementSelector.Advertisement)
   }
 
   // Callable Functions - Update Stats - Track-specific Values
