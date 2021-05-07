@@ -30,8 +30,8 @@ class playerApple {
       'isPlaying': 'button[aria-label="Play"]',
       'isInactive': 'div[class*="playback-description-not-loaded"]',
       'Advertisement': 'a[data-testid="track-info-advertiser"]',
-      'Artist': 'span[class="web-chrome-playback-lcd__sub-copy-scroll-inner-text-wrapper"] > span:first-child',
-      'Title': 'span[class="web-chrome-playback-lcd__sub-copy-scroll-inner-text-wrapper"] > span:nth-child(2)',
+      'Artist': 'audio[id="apple-music-player"]',
+      'Title': 'audio[id="apple-music-player"]',
       'Position': 'input[class="web-chrome-playback-lcd__scrub"]',
       'Duration': 'input[class="web-chrome-playback-lcd__scrub"]',
       'buttonVolume': 'button[aria-label="Change volume"]',
@@ -124,10 +124,10 @@ class playerApple {
 
   // Callable Functions - Update Stats - Track-specific Values
   getArtist() {
-    return getElementBySelector(this.elementSelector.Artist).innerText
+    return getElementBySelector(this.elementSelector.Artist).title.split(' - ')[1].split(' & ')[0]
   }
   getTitle() {
-    return getElementBySelector(this.elementSelector.Title).innerText
+    return getElementBySelector(this.elementSelector.Title).title.split(' - ')[0]
   }
   getPosition() {
     return convertTime2Seconds(getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow'))

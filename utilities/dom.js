@@ -22,14 +22,19 @@ function cacheObject(Selector) {
   let objectValue = null
   if (elementCacheArray.hasOwnProperty(Selector)) {
     objectValue = elementCacheArray[Selector]
-    console.debug('[JABA] [cacheObject] (' + Selector + ') is cached |returning cached Object')
+    if (objectValue == null) {
+      objectValue = document.querySelector(Selector)
+      console.debug('[JABA] [cacheObject] [SUCCESS] (' + Selector + ') is cached but null | re-fetching  => ' + objectValue + '')
+    } else {
+    console.debug('[JABA] [cacheObject] [SUCCESS] (' + Selector + ') is cached | returning cached  => ' + objectValue + '')
+    }
   } else {
     try {
       objectValue = document.querySelector(Selector)
       elementCacheArray[Selector] = objectValue
-      console.debug('[JABA] [cacheObject] (' + Selector + ') is not cached | Caching and returning Object')
+      console.debug('[JABA] [cacheObject] [SUCCESS] (' + Selector + ') is not cached | Caching and returning => ' + objectValue + '')
     } catch(error) {
-      console.debug('[JABA] [cacheObject] Error => ' + error + '')
+      console.debug('[JABA] [cacheObject] [ERROR=' + error + '] => ' + error + '')
     }
   }
   return objectValue
