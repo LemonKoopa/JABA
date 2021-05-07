@@ -87,16 +87,16 @@ class playerSpotify {
     }
   }
   
-  // Returns an object array of changed values { key: 'value' }
+  // Returns an object array of changed values { key: 'newValue', 'oldValue' }
   hasChanged() {
-    let changedValues = {}
+    let changedValues = []
     Object.entries(this).forEach(entry => {
       let entryKey = entry[0]
       let entryValue = entry[1]
       if (entryKey == 'history') { return }
       if (entryKey == 'elementSelector') { return }
       if (entryValue == this.history[entryKey]) { return }
-      changedValues[entryKey] = entryValue
+      changedValues[entryKey] = [entryValue, this.history[entryKey]]
     })
     return changedValues
   }
