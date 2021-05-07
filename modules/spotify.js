@@ -23,11 +23,11 @@ class playerSpotify {
     this.elementSelector = {
       'elementReady': 'div[data-testid="playlist-tracklist"]',
       'elementContainer': 'div[class="Root__now-playing-bar"]',
-      'elementNowPlaying': 'div[data-testid="now-playing-widget"]',
+      'elementNowPlaying': 'div[class="Root__now-playing-bar"]',
       'Volume': 'button[aria-label="Change volume"]',
       'Shuffle': 'button[data-testid="control-button-shuffle"]',
       'Loop': 'button[data-testid="control-button-repeat"]',
-      'isPlaying': 'button[data-testid="control-button-pause"]',
+      'isPlaying': 'title',
       'isInactive': 'div[data-testid="now-playing-widget"]',
       'Advertisement': 'a[data-testid="track-info-advertiser"]',
       'Artist': 'div[data-testid="track-info-artists"]',
@@ -113,13 +113,13 @@ class playerSpotify {
     return getElementBySelector(this.elementSelector.Loop).getAttribute('aria-checked') === "mixed"
   }
   getIsPlaying() {
-    return getElementBySelectors(this.elementSelector.isPlaying).length > 0
+    return !!document.title.includes(' · ')
   }
   getIsInactive() {
-    return getElementBySelectors(this.elementSelector.isInactive).length === 0
+    return !getElementBySelector(this.elementSelector.isInactive)
   }
   getAdvertisement() {
-    return getElementBySelectors(this.elementSelector.Advertisement).length > 0
+    return !!getElementBySelector(this.elementSelector.Advertisement)
   }
 
   // Callable Functions - Update Stats - Track-specific Values
