@@ -97,7 +97,7 @@ class playerSoundCloud {
 	// Display information to console
     if (this.historyPrevious.toString() !== this.historyCurrent.toString()) {
       let stringInfo = `[JABA] Volume (${this.Volume}) Shuffle (${this.Shuffle}) Loop (${this.Loop}) | Artist (${this.Artist}) Track (${this.Title}) Position (${this.Position}) Duration (${this.Duration}) | isPlaying (${this.isPlaying}) isInactive (${this.isInactive})`
-      console.info(stringInfo);
+      console.info(stringInfo)
     }
   
   }
@@ -113,13 +113,13 @@ class playerSoundCloud {
     return getElementBySelector(this.elementSelector.Loop).getAttribute('class') === "repeatControl sc-ir m-one"
   }
   getIsPlaying() {
-    return getElementBySelectors(this.elementSelector.isPlaying).length > 0
+    return !getElementBySelector(this.elementSelector.isPlaying)
   }
   getIsInactive() {
-    return getElementBySelectors(this.elementSelector.isInactive).length === 0
+    return !!getElementBySelector(this.elementSelector.isInactive)
   }
   getAdvertisement() {
-    return getElementBySelectors(this.elementSelector.Advertisement).length > 0
+    return !getElementBySelector(this.elementSelector.Advertisement)
   }
 
   // Callable Functions - Update Stats - Track-specific Values

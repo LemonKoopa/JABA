@@ -119,7 +119,7 @@ class playerSpotify {
     return !getElementBySelector(this.elementSelector.isInactive)
   }
   getAdvertisement() {
-    return !!getElementBySelector(this.elementSelector.Advertisement)
+    return !getElementBySelector(this.elementSelector.Advertisement)
   }
 
   // Callable Functions - Update Stats - Track-specific Values

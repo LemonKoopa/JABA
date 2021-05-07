@@ -76,7 +76,7 @@ class playerApple {
   valuesStringify() {
     let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration]
     console.debug('[JABA] Function [valuesStringify] Result [' + x + ']')
-    return x;
+    return x
   }
 
   valuesUpdate() {
@@ -110,24 +110,24 @@ class playerApple {
     return getElementBySelector(this.elementSelector.Shuffle).getAttribute('aria-checked') === "true"
   }
   getLoop() {
-    return getElementBySelectors(this.elementSelector.Loop).length > 0
+    return !getElementBySelector(this.elementSelector.Loop)
   }
   getIsPlaying() {
-    return getElementBySelectors(this.elementSelector.isPlaying).length > 0
+    return !getElementBySelector(this.elementSelector.isPlaying)
   }
   getIsInactive() {
-    return getElementBySelectors(this.elementSelector.isInactive).length > 0
+    return !!getElementBySelector(this.elementSelector.isInactive)
   }
   getAdvertisement() {
-    return getElementBySelectors(this.elementSelector.Advertisement).length > 0
+    return !getElementBySelector(this.elementSelector.Advertisement)
   }
 
   // Callable Functions - Update Stats - Track-specific Values
   getArtist() {
-    return getElementBySelector(this.elementSelector.Artist)?.innerText
+    return getElementBySelector(this.elementSelector.Artist).innerText
   }
   getTitle() {
-    return getElementBySelector(this.elementSelector.Title)?.innerText
+    return getElementBySelector(this.elementSelector.Title).innerText
   }
   getPosition() {
     return convertTime2Seconds(getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow'))
