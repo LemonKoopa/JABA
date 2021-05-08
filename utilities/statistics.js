@@ -35,6 +35,8 @@ class Statistics {
   }
 
   addEvent(Artist, Title, Duration, PlayTime) {
+	// Null check
+	if (Artist == undefined && Title == undefined) { return }
     // Calculate percentage of track played
     let percentPlayed = +(PlayTime / Duration * 100).toFixed(2)
     if (percentPlayed >= 99) {
