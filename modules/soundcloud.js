@@ -1,29 +1,11 @@
-class playerSoundCloud {
-  constructor(Volume, Shuffle, Loop, isPlaying, isInactive, Advertisement, Artist, Title, Position, Duration, historyPrevious, historyCurrent) {
-
-    // Initialize History
-    this.historyPrevious = []
-    this.historyCurrent = []
-
-    // Global values
-    this.Volume = Volume
-    this.Shuffle = Shuffle
-    this.Loop = Loop
-    this.isPlaying = isPlaying
-    this.isInactive = isInactive
-    this.Advertisement = Advertisement
-
-    // Track-specific values
-    this.Artist = Artist
-    this.Title = Title
-    this.Duration = Duration
-    this.Position = Position
-
+class playerSoundCloud extends _generic {
+  constructor() {
+    super()
     // Queries
     this.elementSelector = {
       'elementReady': 'div[class="listenDetails__trackList"]',
       'elementContainer': 'div[class="playControls__elements"]',
-      'elementNowPlaying': 'div[class="playControls__soundBadge"]',
+      'elementNowPlaying': 'div[class="playControls__elements"]',
       'Volume': 'div[class="volume__sliderWrapper"]',
       'Shuffle': 'button[class="shuffleControl sc-ir"]',
       'Loop': 'button[class="repeatControl sc-ir m-none"]',
@@ -31,8 +13,8 @@ class playerSoundCloud {
       'isInactive': 'div[class="playbackSoundBadge__titleContextContainer"]',
       'Advertisement': 'a[data-testid="track-info-advertiser"]', // come back to this -- doesn't detect ads
       'Artist': 'a[class="playbackSoundBadge__lightLink sc-link-light sc-link-secondary sc-truncate"]',
-      'Title': 'a[class="playbackSoundBadge__titleLink sc-truncate"]',
-      'Position': 'div[class="playbackTimeline__progressWrapper"]', // new
+      'Title': 'a[class="playbackSoundBadge__titleLink sc-truncate"] > span:nth-child(2)',
+      'Position': 'div[class="playbackTimeline__progressWrapper"]',
       'Duration': 'div[class="playbackTimeline__duration"] > span:nth-child(2)',
       'buttonVolume': 'div[class="volume__sliderWrapper"]',
       'buttonShuffle': 'button[class="shuffleControl sc-ir"]',
@@ -40,7 +22,7 @@ class playerSoundCloud {
       'buttonPrevious': 'button[class="skipControl sc-ir playControls__control playControls__prev skipControl__previous"]',
       'buttonPause': 'button[aria-label="Pause current"]',
       'buttonPlay': 'button[aria-label="Play current"]',
-      'buttonNext': 'button[class="skipControl sc-ir playControls__control playControls__next skipControl__next"',
+      'buttonNext': 'button[class="skipControl sc-ir playControls__control playControls__next skipControl__next]"',
       'buttonPlaylistPlay': 'div[class="soundTitle__playButton soundTitle__playButtonHero"]'
     }
 
@@ -72,67 +54,47 @@ class playerSoundCloud {
     controlClick(this.elementSelector.buttonPlaylistPlay)
   }
 
-  // Callable Functions - History
-  valuesStringify() {
-    let x = [this.Volume, this.Shuffle, this.Loop, this.isPlaying, this.isInactive, this.Advertisement, this.Artist, this.Title, this.Position, this.Duration]
-    console.debug('[JABA] Function [valuesStringify] Result [' + x + ']')
-    return x
-  }
-
-  valuesUpdate() {
-    console.debug('[JABA] Function [valuesUpdate]')
-    this.historyPrevious = this.valuesStringify()
-    this.Volume = this.getVolume()
-    this.Shuffle = this.getShuffle()
-    this.Loop = this.getLoop()
-    this.isPlaying = this.getIsPlaying()
-    this.isInactive = this.getIsInactive()
-    this.Advertisement = this.getAdvertisement()
-    this.Artist = this.getArtist()
-    this.Title = this.getTitle()
-    this.Position = this.getPosition()
-    this.Duration = this.getDuration()
-    this.historyCurrent = this.valuesStringify()
-		
-	// Display information to console
-    if (this.historyPrevious.toString() !== this.historyCurrent.toString()) {
-      let stringInfo = `[JABA] Volume (${this.Volume}) Shuffle (${this.Shuffle}) Loop (${this.Loop}) | Artist (${this.Artist}) Track (${this.Title}) Position (${this.Position}) Duration (${this.Duration}) | isPlaying (${this.isPlaying}) isInactive (${this.isInactive})`
-      console.info(stringInfo)
-    }
-  
-  }
-  
   // Callable Functions - Update Stats - Global Value
   getVolume() {
+    console.debug('getVolume => ' + getElementBySelector(this.elementSelector.Volume).getAttribute('aria-valuenow') * 100)
     return getElementBySelector(this.elementSelector.Volume).getAttribute('aria-valuenow') * 100
   }
   getShuffle() {
+    console.debug('getShuffle => ' + (getElementBySelector(this.elementSelector.Shuffle).getAttribute('class') === "shuffleControl sc-ir m-shuffling"))
     return getElementBySelector(this.elementSelector.Shuffle).getAttribute('class') === "shuffleControl sc-ir m-shuffling"
   }
   getLoop() {
+    console.debug('getLoop => ' + (getElementBySelector(this.elementSelector.Loop).getAttribute('class') === "repeatControl sc-ir m-one"))
     return getElementBySelector(this.elementSelector.Loop).getAttribute('class') === "repeatControl sc-ir m-one"
   }
   getIsPlaying() {
-    return !getElementBySelector(this.elementSelector.isPlaying)
+    console.debug('getIsPlaying => ' + !!getElementBySelector(this.elementSelector.isPlaying))
+    return !!getElementBySelector(this.elementSelector.isPlaying)
   }
   getIsInactive() {
-    return !!getElementBySelector(this.elementSelector.isInactive)
+    console.debug('getIsInactive => ' + !getElementBySelector(this.elementSelector.isInactive))
+    return !getElementBySelector(this.elementSelector.isInactive)
   }
   getAdvertisement() {
-    return !getElementBySelector(this.elementSelector.Advertisement)
+    console.debug('getAdvertisement => ' + !!getElementBySelector(this.elementSelector.Advertisement))
+    return !!getElementBySelector(this.elementSelector.Advertisement)
   }
 
   // Callable Functions - Update Stats - Track-specific Values
   getArtist() {
-    return getElementBySelector(this.elementSelector.Artist).getAttribute('title')
+    console.debug('getArtist => ' + getElementBySelector(this.elementSelector.Artist).innerText)
+    return getElementBySelector(this.elementSelector.Artist).innerText
   }
   getTitle() {
-    return getElementBySelector(this.elementSelector.Title).getAttribute('title')
+    console.debug('getTitle => ' + getElementBySelector(this.elementSelector.Title).innerText)
+    return getElementBySelector(this.elementSelector.Title).innerText
   }
   getPosition() {
+    console.debug('getPosition => ' + getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow'))
     return getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow')
   }
   getDuration() {
+    console.debug('getDuration => ' + convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).innerText))
     return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).innerText)
   }
 
