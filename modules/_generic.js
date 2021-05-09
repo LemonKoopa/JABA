@@ -32,7 +32,8 @@ class _generic {
       Artist: this.Artist,
       Title: this.Title,
       Position: this.Position,
-      Duration: this.Duration
+      Duration: this.Duration,
+      Timestamp: this.Timestamp
     }
   }
  
@@ -50,6 +51,7 @@ class _generic {
     this.Title = this.getTitle()
     this.Position = this.getPosition()
     this.Duration = this.getDuration()
+    this.Timestamp = new Date()
   }
  
   // Returns an object array of changed values { key: 'newValue', 'oldValue' }
@@ -58,8 +60,10 @@ class _generic {
     Object.entries(this).forEach(entry => {
       let entryKey = entry[0]
       let entryValue = entry[1]
+
       if (entryKey == 'history') { return }
       if (entryKey == 'elementSelector') { return }
+      if (entryKey == 'Timestamp') { return }
       if (entryValue == this.history[entryKey]) { return }
       changedValues[entryKey] = [entryValue, this.history[entryKey]]
     })

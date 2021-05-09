@@ -42,7 +42,7 @@ class _logic extends _generic {
           if (entryValueOld >= 1 && entryValueNew == 0) {
             strInfo += ' (Changing Songs)'
           } else {
-            strInfo += ' {Position => ' + entryValueNew + '}'
+            strInfo += ' {Position ' + entryValueOld + ' => ' + entryValueNew + '} {Time Difference: ' + (new Date() - this.history.Timestamp) + '}'
           }
           break
         case 'Duration':
@@ -54,6 +54,59 @@ class _logic extends _generic {
     if (strInfo !== '[JABA]') { return strInfo } else { return null }
   }
 
+  currentAction() {
+    
+    let strStates = '[currentAction] '
+    
+    Object.entries(this.hasChanged()).forEach(entry => {
 
+      let entryKey = entry[0]
+      let entryValueNew = entry[1][0]
+      let entryValueOld = entry[1][1]
+      //console.info(`[JABA] [DEBUG] [Key:${entryKey}] [Value:${entryValueOld}] > [Value:${entryValueNew}] [TimeDiff:${timeDifference}] [TimeOld:${entryValueOldTimestamp}] [TimeNew:${entryValueNewTimestamp}]`)
 
+      switch (entryKey) {
+        case 'Volume':
+          break
+
+        case 'Shuffle':
+          break
+
+        case 'Loop':
+          break
+
+        case 'isPlaying':
+          break
+
+        case 'isInactive':
+          break
+
+        case 'Advertisement':
+          break
+
+        case 'Artist':
+          break
+
+        case 'Title':
+          break
+
+        case 'Position':
+          let timeDifference = new Date() - this.history.Timestamp // Time in MS since last update
+          let timeDifferencePosition = (entryValueNew - entryValueOld) * 1000 - 750
+          if ( entryValueOld >= 1 && entryValueNew == 0 && this.history.Duration !== this.Duration ) { strStates += '(Track Change) ' } 
+          else if ( timeDifference <= timeDifferencePosition ) { strStates += '(Track Skim | TDiff=' + timeDifference + ' PDiff=' + timeDifferencePosition + ' ) ' }
+          break
+
+        case 'Duration':
+          break
+
+      }      
+
+    })
+    
+    return strStates
+    
+  }
+  
+  
 }
