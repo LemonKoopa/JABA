@@ -1,4 +1,4 @@
-class playerSoundCloud extends _generic {
+class playerSoundCloud extends _logic {
   constructor() {
     super()
     // Queries
