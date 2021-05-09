@@ -1,6 +1,6 @@
 class playerSpotify extends _generic {
   constructor() {
-		super()
+	super()
     // Queries
     this.elementSelector = {
       'elementReady': 'div[data-testid="playlist-tracklist"]',

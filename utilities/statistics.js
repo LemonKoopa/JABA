@@ -39,7 +39,7 @@ class Statistics {
 	if (Artist == undefined && Title == undefined) { return }
     // Calculate percentage of track played
     let percentPlayed = +(PlayTime / Duration * 100).toFixed(2)
-    if (percentPlayed >= 99) {
+    if (percentPlayed >= 95) {
       percentPlayed = 100
     }
     // Calculate if played to completion or skipped
