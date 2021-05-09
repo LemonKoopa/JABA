@@ -71,6 +71,23 @@ class Statistics {
     this.data.Metrics.Calculated.Completion = +(this.statsCompletion())
   }
 
+  upload() {
+    console.debug('[JABA] [upload] Sending JSON Statistics to cloud...')
+    GM.xmlHttpRequest({
+      method: "POST",
+      url: "http://emmett-brown.com/debugger/json.php",
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "text/xml",
+        "Content-Type": "application/json"
+      },
+      data: JSON.stringify(this.data),
+      onload: function(response) {
+        console.debug('[JABA] [upload] JSON uploaded successfully')
+      }
+    })
+  }
+
   // Functions - Array
   getElementAtIndex(index) {
     return this.data[index]
