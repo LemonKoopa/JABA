@@ -103,6 +103,7 @@ class _logic extends _generic {
           
           if ( historyPosition >= 10 && nowPosition <= 10 ) { 
             strStates += '[Status: Track Change] '
+            strStates += '[Request: Update statistics] '
             strStates += '[Request: Upload to cloud] '
           } 
           else if ( differenceTimestamp <= differencePosition && nowPosition != 0 && historyPosition != historyDuration && historyPosition != 0 ) { 

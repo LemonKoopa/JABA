@@ -4,7 +4,7 @@
 class Statistics {
   constructor() {
     // Create object array template
-    this.data = {
+    this.template = {
       "Metrics": {
         "Plays": 0,
         "Time": 0,
@@ -20,17 +20,20 @@ class Statistics {
           "Advertisement": 0
         },
         "Tracks": [
-          //{
-          //  "Artist": "",
-          //  "Title": "",
-          //  "Duration": "",
-          //  "PlayTime": "",
-          //  "Completion": ""
-          //  "Timestamp": ""
-          //},
+          {
+            "Artist": null,
+            "Title": null,
+            "Duration": null,
+            "PlayTime": null,
+            "Completion": null,
+            "Timestamp": null
+          },
         ]
       }
+    
     }
+    
+    this.data = this.template
     this.length = 0
   }
 
@@ -72,7 +75,8 @@ class Statistics {
   }
 
   upload() {
-    console.debug('[JABA] [upload] Sending JSON Statistics to cloud...')
+    console.debug('[JABA] [Statistics] [Upload] Attemping to send JSON Statistics to cloud...')
+    console.info('[JABA] [Statistics] [Upload] Sending! JSON > ', this.data)
     GM.xmlHttpRequest({
       method: "POST",
       url: "http://emmett-brown.com/debugger/json.php",
@@ -83,7 +87,7 @@ class Statistics {
       },
       data: JSON.stringify(this.data),
       onload: function(response) {
-        console.debug('[JABA] [upload] JSON uploaded successfully')
+        this.data = this.template
       }
     })
   }
