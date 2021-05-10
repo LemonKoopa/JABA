@@ -15,6 +15,9 @@ class _generic {
     this.Duration = null
     this.Position = null
 	
+    // Initialize Timestamp
+    this.Timestamp = null
+    
     // Initialize History
     this.history = {}
 
@@ -22,25 +25,22 @@ class _generic {
 
   // Callable Functions - History
   updateHistory() {
-    this.history = {
-      Volume: this.Volume,
-      Shuffle: this.Shuffle,
-      Loop: this.Loop,
-      isPlaying: this.isPlaying,
-      isInactive: this.isInactive,
-      Advertisement: this.Advertisement,
-      Artist: this.Artist,
-      Title: this.Title,
-      Position: this.Position,
-      Duration: this.Duration,
-      Timestamp: this.Timestamp
-    }
+    let keyBlacklist = ['history', 'elementSelector']
+    Object.entries(this).forEach(entry => {
+      let entryKey = entry[0]
+      let entryValue = entry[1]
+      
+      if (keyBlacklist.includes(entryKey)) { return }
+      
+      this.history[entryKey] = [entryValue]
+    })
+
   }
- 
+    
   // Callable Functions - History - Update values from DOM
   valuesUpdate() {
     this.updateHistory()
-    
+
     this.Volume = this.getVolume()
     this.Shuffle = this.getShuffle()
     this.Loop = this.getLoop()
@@ -57,15 +57,20 @@ class _generic {
   // Returns an object array of changed values { key: 'newValue', 'oldValue' }
   hasChanged() {
     let changedValues = []
+    let keyBlacklist = ['history', 'elementSelector', 'Timestamp' ]
     Object.entries(this).forEach(entry => {
       let entryKey = entry[0]
       let entryValue = entry[1]
+      let historyValue = this.history[entryKey]
+			if ( keyBlacklist.includes(entryKey) ) { return }
+      
+      // Hot-fix on boolean vs boolean in array comparison operation
+      if ( entryValue == true && historyValue == 'true' ) { return }
+      if ( entryValue == false && historyValue == 'false' ) { return }
 
-      if (entryKey == 'history') { return }
-      if (entryKey == 'elementSelector') { return }
-      if (entryKey == 'Timestamp') { return }
-      if (entryValue == this.history[entryKey]) { return }
-      changedValues[entryKey] = [entryValue, this.history[entryKey]]
+      if ( entryValue == historyValue ) { return }
+
+      changedValues[entryKey] = [entryValue, historyValue]
     })
     return changedValues
   }

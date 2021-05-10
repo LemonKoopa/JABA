@@ -40,9 +40,9 @@ class _logic extends _generic {
         case 'Position':
           // Changing songs
           if (entryValueOld >= 1 && entryValueNew == 0) {
-            strInfo += ' (Changing Songs)'
+            strInfo += ' (Changing Songs) (cDuration: ' + this.Duration + ' | pDuration: ' + this.history.Duration + ')'
           } else {
-            strInfo += ' {Position ' + entryValueOld + ' => ' + entryValueNew + '} {Time Difference: ' + (new Date() - this.history.Timestamp) + '}'
+            strInfo += ' {Position ' + entryValueOld + ' => ' + entryValueNew + '} {Time Difference: ' + (new Date() - this.history.Timestamp[0]) + '}'
           }
           break
         case 'Duration':
@@ -91,10 +91,16 @@ class _logic extends _generic {
           break
 
         case 'Position':
-          let timeDifference = new Date() - this.history.Timestamp // Time in MS since last update
-          let timeDifferencePosition = (entryValueNew - entryValueOld) * 1000 - 750
-          if ( entryValueOld >= 1 && entryValueNew == 0 && this.history.Duration !== this.Duration ) { strStates += '(Track Change) ' } 
-          else if ( timeDifference <= timeDifferencePosition ) { strStates += '(Track Skim | TDiff=' + timeDifference + ' PDiff=' + timeDifferencePosition + ' ) ' }
+          let nowTimestamp = new Date()
+          let historyTimestamp = this.history.Timestamp[0]
+          let differenceTimestamp = Math.abs(nowTimestamp - historyTimestamp) // Time in MS since last update
+          
+          let nowPosition = entryValueNew
+          let historyPosition = entryValueOld
+          let differencePosition = (Math.abs(nowPosition - historyPosition)) * 1000 - 750
+          
+          if ( entryValueOld >= 1 && entryValueNew == 0 && this.history.Duration != this.Duration ) { strStates += '(Track Change) ' } 
+          else if ( differenceTimestamp <= differencePosition ) { strStates += '(Track Skim | TDiff=' + differenceTimestamp + ' PDiff=' + differencePosition + ' ) ' }
           break
 
         case 'Duration':
