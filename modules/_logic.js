@@ -63,7 +63,6 @@ class _logic extends _generic {
       let entryKey = entry[0]
       let entryValueNew = entry[1][0]
       let entryValueOld = entry[1][1]
-      //console.info(`[JABA] [DEBUG] [Key:${entryKey}] [Value:${entryValueOld}] > [Value:${entryValueNew}] [TimeDiff:${timeDifference}] [TimeOld:${entryValueOldTimestamp}] [TimeNew:${entryValueNewTimestamp}]`)
 
       switch (entryKey) {
         case 'Volume':
@@ -91,6 +90,9 @@ class _logic extends _generic {
           break
 
         case 'Position':
+          let historyDuration = this.history.Duration
+          let nowDuration = this.Duration
+          
           let nowTimestamp = new Date()
           let historyTimestamp = this.history.Timestamp[0]
           let differenceTimestamp = Math.abs(nowTimestamp - historyTimestamp) // Time in MS since last update
@@ -99,8 +101,13 @@ class _logic extends _generic {
           let historyPosition = entryValueOld
           let differencePosition = (Math.abs(nowPosition - historyPosition)) * 1000 - 750
           
-          if ( entryValueOld >= 1 && entryValueNew == 0 && this.history.Duration != this.Duration ) { strStates += '(Track Change) ' } 
-          else if ( differenceTimestamp <= differencePosition ) { strStates += '(Track Skim | TDiff=' + differenceTimestamp + ' PDiff=' + differencePosition + ' ) ' }
+          if ( historyPosition >= 10 && nowPosition <= 10 ) { 
+            strStates += '[Status: Track Change] '
+            strStates += '[Request: Upload to cloud] '
+          } 
+          else if ( differenceTimestamp <= differencePosition && nowPosition != 0 && historyPosition != historyDuration && historyPosition != 0 ) { 
+            strStates += '[Track Skim] ' 
+          }
           break
 
         case 'Duration':
