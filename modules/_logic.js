@@ -106,7 +106,7 @@ class _logic extends _generic {
             strStates += '[Request: Upload to cloud] '
           } 
           else if ( differenceTimestamp <= differencePosition && nowPosition != 0 && historyPosition != historyDuration && historyPosition != 0 ) { 
-            strStates += '[Track Skim] ' 
+            strStates += '[Status: Track Skim] ' 
           }
           break
 
