@@ -32,7 +32,7 @@ class _generic {
       
       if (keyBlacklist.includes(entryKey)) { return }
       
-      this.history[entryKey] = [entryValue]
+      this.history[entryKey] = entryValue
     })
 
   }

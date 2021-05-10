@@ -94,7 +94,7 @@ class _logic extends _generic {
           let nowDuration = this.Duration
           
           let nowTimestamp = new Date()
-          let historyTimestamp = this.history.Timestamp[0]
+          let historyTimestamp = this.history.Timestamp
           let differenceTimestamp = Math.abs(nowTimestamp - historyTimestamp) // Time in MS since last update
           
           let nowPosition = entryValueNew
