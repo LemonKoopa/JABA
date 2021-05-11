@@ -25,13 +25,11 @@ class _generic {
 
   // Callable Functions - History
   updateHistory() {
-    let keyBlacklist = ['history', 'elementSelector']
+    let keyBlacklist = [ 'history', 'elementSelector' ]
     Object.entries(this).forEach(entry => {
       let entryKey = entry[0]
       let entryValue = entry[1]
-      
       if (keyBlacklist.includes(entryKey)) { return }
-      
       this.history[entryKey] = entryValue
     })
 
@@ -63,13 +61,8 @@ class _generic {
       let entryValue = entry[1]
       let historyValue = this.history[entryKey]
 			if ( keyBlacklist.includes(entryKey) ) { return }
-      
-      // Hot-fix on boolean vs boolean in array comparison operation
-      if ( entryValue == true && historyValue == 'true' ) { return }
-      if ( entryValue == false && historyValue == 'false' ) { return }
-
       if ( entryValue == historyValue ) { return }
-
+      if ( entryValue == historyValue.toString() ) { return }
       changedValues[entryKey] = [entryValue, historyValue]
     })
     return changedValues
