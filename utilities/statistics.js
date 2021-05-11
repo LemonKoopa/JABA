@@ -1,6 +1,3 @@
-// let playerStatistics = new Statistics()
-// playerStatistics.addEvent('Artist Name', 'Track Title', Duration, Position when skipped)
-
 class Statistics {
   constructor() {
     // Create object array template
@@ -20,21 +17,22 @@ class Statistics {
           "Advertisement": 0
         },
         "Tracks": [
-          {
-            "Artist": null,
-            "Title": null,
-            "Duration": null,
-            "PlayTime": null,
-            "Completion": null,
-            "Timestamp": null
-          },
+          //{
+          //  "Artist": null,
+          //  "Title": null,
+          //  "Duration": null,
+          //  "PlayTime": null,
+          //  "Completion": null,
+          //  "Timestamp": null
+          //},
         ]
       }
-    
+
     }
-    
+
     this.data = this.template
     this.length = 0
+
   }
 
   addEvent(Artist, Title, Duration, PlayTime) {
@@ -96,20 +94,20 @@ class Statistics {
   getElementAtIndex(index) {
     return this.data[index]
   }
-  
+
   push(element) {
     this.data[this.length] = element
     this.length++
     return this.length
   }
-  
+
   pop() {
     const item = this.data[this.length - 1]
     delete this.data[this.length - 1]
     this.length--
     return this.data
   }
-  
+
   deleteAt(index) {
     for (let i = index; i < this.length - 1; i++) {
       this.data[i] = this.data[i + 1]
@@ -118,7 +116,7 @@ class Statistics {
     this.length--
     return this.data
   }
-  
+
   insertAt(item, index) {
     for (let i = this.length; i >= index; i--) {
       this.data[i] = this.data[i - 1]
