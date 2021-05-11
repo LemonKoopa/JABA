@@ -40,9 +40,9 @@ class _logic extends _generic {
         case 'Position':
           // Changing songs
           if (entryValueOld >= 1 && entryValueNew == 0) {
-            strInfo += ' (Changing Songs) (cDuration: ' + this.Duration + ' | pDuration: ' + this.history.Duration + ')'
+            //strInfo += ' (Changing Songs)'
           } else {
-            strInfo += ' {Position ' + entryValueOld + ' => ' + entryValueNew + '} {Time Difference: ' + (new Date() - this.history.Timestamp[0]) + '}'
+            //strInfo += ' {Position ' + entryValueOld + ' => ' + entryValueNew + '} {Time Difference: ' + (new Date() - this.history.Timestamp) + '}'
           }
           break
         case 'Duration':
@@ -66,27 +66,35 @@ class _logic extends _generic {
 
       switch (entryKey) {
         case 'Volume':
+          strStates += '[Status: Volume (' + entryValueOld + ' > ' + entryValueNew + ')] '
           break
 
         case 'Shuffle':
+          strStates += '[Status: Shuffle (' + entryValueOld + ' > ' + entryValueNew + ')] '
           break
 
         case 'Loop':
+          strStates += '[Status: Loop (' + entryValueOld + ' > ' + entryValueNew + ')] '
           break
 
         case 'isPlaying':
+          strStates += '[Status: Playing (' + entryValueOld + ' > ' + entryValueNew + ')] '
           break
 
         case 'isInactive':
+          strStates += '[Status: Inactive (' + entryValueOld + ' > ' + entryValueNew + ')] '
           break
 
         case 'Advertisement':
+          strStates += '[Status: Advertisement (' + entryValueOld + ' > ' + entryValueNew + ')] '
           break
 
         case 'Artist':
+          strStates += '[Status: Artist (' + entryValueOld + ' > ' + entryValueNew + ')] '
           break
 
         case 'Title':
+          strStates += '[Status: Title (' + entryValueOld + ' > ' + entryValueNew + ')] '
           break
 
         case 'Position':
@@ -107,7 +115,7 @@ class _logic extends _generic {
             strStates += '[Request: Upload to cloud] '
           } 
           else if ( differenceTimestamp <= differencePosition && nowPosition != 0 && historyPosition != historyDuration && historyPosition != 0 ) { 
-            strStates += '[Status: Track Skim] ' 
+            strStates += '[Status: Track Skim (TDiff=' + differencePosition + ')] ' 
           }
           break
 
