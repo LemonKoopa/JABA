@@ -1,29 +1,29 @@
 class playerSoundCloud extends _logic {
   constructor() {
     super()
+
     // Queries
     this.elementSelector = {
       'elementReady': 'div[class="listenDetails__trackList"]',
-      'elementContainer': 'div[class="playControls__elements"]',
-      'elementNowPlaying': 'div[class="playControls__elements"]',
-      'Volume': 'div[class="volume__sliderWrapper"]',
-      'Shuffle': 'button[class="shuffleControl sc-ir"]',
-      'Loop': 'button[class="repeatControl sc-ir m-none"]',
+      'elementNowPlaying': 'section[aria-label="miniplayer"]',
+      'Volume': 'div[aria-label="Volume"]',
+      'Shuffle': 'button[class*="shuffleControl"]',
+      'Loop': 'button[class*="repeatControl"]',
       'isPlaying': 'button[aria-label="Pause current"]',
       'isInactive': 'div[class="playbackSoundBadge__titleContextContainer"]',
-      'Advertisement': 'a[data-testid="track-info-advertiser"]', // come back to this -- doesn't detect ads
-      'Artist': 'a[class="playbackSoundBadge__lightLink sc-link-light sc-link-secondary sc-truncate"]',
-      'Title': 'a[class="playbackSoundBadge__titleLink sc-truncate"] > span:nth-child(2)',
+      'Advertisement': 'a[data-testid="track-info-advertiser"]',
+      'Artist': 'a[class*="playbackSoundBadge__lightLink"]',
+      'Title': 'div[class*="playbackSoundBadge__title"] > a:nth-child(1) > span:nth-child(2)',
       'Position': 'div[class="playbackTimeline__progressWrapper"]',
-      'Duration': 'div[class="playbackTimeline__duration"] > span:nth-child(2)',
-      'buttonVolume': 'div[class="volume__sliderWrapper"]',
+      'Duration': 'div[class="playbackTimeline__progressWrapper"]',
+      'buttonVolume': 'div[aria-label="Volume"]',
       'buttonShuffle': 'button[class="shuffleControl sc-ir"]',
-      'buttonLoop': 'button[class="repeatControl sc-ir m-none"]',
-      'buttonPrevious': 'button[class="skipControl sc-ir playControls__control playControls__prev skipControl__previous"]',
-      'buttonPause': 'button[aria-label="Pause current"]',
-      'buttonPlay': 'button[aria-label="Play current"]',
-      'buttonNext': 'button[class="skipControl sc-ir playControls__control playControls__next skipControl__next]"',
-      'buttonPlaylistPlay': 'div[class="soundTitle__playButton soundTitle__playButtonHero"]'
+      'buttonLoop': 'button[class="repeatControl sc-ir m-all"]',
+      'buttonPrevious': 'button[class*="playControls__prev"]',
+      'buttonPause': 'button[class*="playControls__play playing"]',
+      'buttonPlay': 'button[class*="playControls__play"]',
+      'buttonNext': 'button[class*="playControls__next]"',
+      'buttonPlaylistPlay': 'div[class*="soundTitle__playButtonHero"] > a:nth-child(1)'
     }
 
   }
@@ -56,46 +56,48 @@ class playerSoundCloud extends _logic {
 
   // Callable Functions - Update Stats - Global Value
   getVolume() {
-    console.debug('getVolume => ' + getElementBySelector(this.elementSelector.Volume).getAttribute('aria-valuenow') * 100)
+    //console.debug('[JABA] getVolume => ' + getElementBySelector(this.elementSelector.Volume).getAttribute('aria-valuenow') * 100)
     return getElementBySelector(this.elementSelector.Volume).getAttribute('aria-valuenow') * 100
   }
   getShuffle() {
-    console.debug('getShuffle => ' + (getElementBySelector(this.elementSelector.Shuffle).getAttribute('class') === "shuffleControl sc-ir m-shuffling"))
+    //console.debug('[JABA] getShuffle => ' + (getElementBySelector(this.elementSelector.Shuffle).getAttribute('class') === "shuffleControl sc-ir m-shuffling"))
     return getElementBySelector(this.elementSelector.Shuffle).getAttribute('class') === "shuffleControl sc-ir m-shuffling"
   }
   getLoop() {
-    console.debug('getLoop => ' + (getElementBySelector(this.elementSelector.Loop).getAttribute('class') === "repeatControl sc-ir m-one"))
-    return getElementBySelector(this.elementSelector.Loop).getAttribute('class') === "repeatControl sc-ir m-one"
+    //console.debug('[JABA] getLoop => ' + (getElementBySelector(this.elementSelector.Loop).getAttribute('class') === "repeatControl sc-ir m-one"))
+    return getElementBySelector(this.elementSelector.Loop).getAttribute('class') === "repeatControl sc-ir m-all"
   }
   getIsPlaying() {
-    console.debug('getIsPlaying => ' + !!getElementBySelector(this.elementSelector.isPlaying))
+    //console.debug('[JABA] getIsPlaying => ' + !!getElementBySelector(this.elementSelector.isPlaying))
     return !!getElementBySelector(this.elementSelector.isPlaying)
   }
   getIsInactive() {
-    console.debug('getIsInactive => ' + !getElementBySelector(this.elementSelector.isInactive))
-    return !getElementBySelector(this.elementSelector.isInactive)
+    let toggleState = true
+    if (this.Position != 0 && this.isPlaying == true) { toggleState = false }
+    //console.debug('[JABA] getIsInactive => ' + toggleState)
+    return toggleState
   }
   getAdvertisement() {
-    console.debug('getAdvertisement => ' + !!getElementBySelector(this.elementSelector.Advertisement))
+    //console.debug('[JABA] getAdvertisement => ' + !!getElementBySelector(this.elementSelector.Advertisement))
     return !!getElementBySelector(this.elementSelector.Advertisement)
   }
 
   // Callable Functions - Update Stats - Track-specific Values
   getArtist() {
-    console.debug('getArtist => ' + getElementBySelector(this.elementSelector.Artist).innerText)
-    return getElementBySelector(this.elementSelector.Artist).innerText
+    //console.debug('[JABA] getArtist => ' + getElementBySelector(this.elementSelector.Artist).innerText)
+    return getElementBySelector(this.elementSelector.Artist).title
   }
   getTitle() {
-    console.debug('getTitle => ' + getElementBySelector(this.elementSelector.Title).innerText)
+    //console.debug('[JABA] getTitle => ' + getElementBySelector(this.elementSelector.Title).innerText
     return getElementBySelector(this.elementSelector.Title).innerText
   }
   getPosition() {
-    console.debug('getPosition => ' + getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow'))
+    //console.debug('[JABA] getPosition => ' + getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow'))
     return getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow')
   }
   getDuration() {
-    console.debug('getDuration => ' + convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).innerText))
-    return convertTime2Seconds(getElementBySelector(this.elementSelector.Duration).innerText)
+    //console.debug('[JABA] getDuration => ' + getElementBySelector(this.elementSelector.Duration).getAttribute('aria-valuemax'))
+    return getElementBySelector(this.elementSelector.Duration).getAttribute('aria-valuemax')
   }
 
 }

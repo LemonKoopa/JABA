@@ -1,18 +1,20 @@
 function stripSelector(Selector) {
-  // [0] = Name
-  // [1] = Selector Type
-  // [2] = Selector Identifier
-  
-  let xName = Selector[0]
-  let xType = Selector[1].split("[")[0]
-  
+  // [0] = Label
+  // [1] = nodeType
+  // [2] = Attribute Type
+  // [3] = Query
+  let attributeType = Selector[1].split("=")[0].split('[')[1].replace('*','')
+
+  let oLabel = Selector[0]
+  let oNodeName = Selector[1].split("[")[0]
+
   // Fetch the Identifier
-  let stripPre = Selector[1].split("[").pop()
+  let stripPre = Selector[1].split("=").pop()
   let stripPost = stripPre.split("]")[0]
-  let xIdentifier = stripPost
-  
-  let X = [xName, xType, xIdentifier]
-  
+  let oQuery = stripPost.replace(/['"]+/g, '')
+
+  let X = [oLabel, oNodeName, attributeType, oQuery]
+
   return X
 }
 
@@ -26,7 +28,7 @@ function cacheObject(Selector) {
       objectValue = document.querySelector(Selector)
       console.debug('[JABA] [cacheObject] [SUCCESS] (' + Selector + ') is cached but null | re-fetching  => ' + objectValue + '')
     } else {
-    console.debug('[JABA] [cacheObject] [SUCCESS] (' + Selector + ') is cached | returning cached  => ' + objectValue + '')
+      console.debug('[JABA] [cacheObject] [SUCCESS] (' + Selector + ') is cached | returning cached  => ' + objectValue + '')
     }
   } else {
     try {
@@ -43,10 +45,11 @@ function cacheObject(Selector) {
 function getElementBySelector(Selector) {
   let element = null
   try {
-    element = cacheObject(Selector)
-    console.debug('[JABA] [getElementBySelector] [SUCCESS] => (' + Selector + ')')
+    //element = cacheObject(Selector)
+    element = document.querySelector(Selector)
+    //console.debug('[JABA] [getElementBySelector] [SUCCESS] => (' + Selector + ')')
   } catch(error) {
-    console.debug('[JABA] [getElementBySelector] [ERROR=' + error + '] => (' + Selector + ')')
+    //console.debug('[JABA] [getElementBySelector] [ERROR=' + error + '] => (' + Selector + ')')
   }
   return element
 }
@@ -55,9 +58,9 @@ function getElementBySelectors(Selector) {
   let element = null
   try {
     element = document.querySelectorAll(Selector)
-    console.debug('[JABA] [getElementBySelectors] => (' + Selector + ') Found (' + element.length + ')')
+    //console.debug('[JABA] [getElementBySelectors] => (' + Selector + ') Found (' + element.length + ')')
   } catch(error) {
-    console.debug('[JABA] [getElementBySelectors] Error => ' + error + '')
+    //console.debug('[JABA] [getElementBySelectors] Error => ' + error + '')
   }
   return element[0]
 }
@@ -65,29 +68,32 @@ function getElementBySelectors(Selector) {
 function controlClick(x) {
   try {
     getElementBySelector(x).click()
-    console.debug('[JABA] [controlClick] [SUCCESS] => [' + x + ']')
+    //console.debug('[JABA] [controlClick] [SUCCESS] => [' + x + ']')
     return true
   } catch (error) {
-    console.debug('[JABA] [controlClick] [ERROR=' + error + '] => [' + x + ']')
+    //console.debug('[JABA] [controlClick] [ERROR=' + error + '] => [' + x + ']')
     return false
   }
 }
 
 function existsInArray(node, array) {
-  let check = false
+  let nodeName = null
 
   // Iterate through array for comparison
-  Object.entries(array).find(item => {
-    let arrayItem = stripSelector(item)[2]
-    let domItem = node['outerHTML']
+  Object.entries(array).find(entry => {
+    let entryKey = entry[0]
+    if (entryKey.includes('element')) { return }
+    if (entryKey.includes('button'))  { return }
+
+    let arrayStrip = stripSelector(entry)
+    let arrayItem = arrayStrip[3]
+    let domItem = node['outerHTML'].split('>')[0]
+    nodeName = arrayStrip[0]
     if (domItem.includes(arrayItem)) {
-      console.debug('[JABA] [existsInArray] => Matched. ' + arrayItem + ' == ' + domItem + '')
-      check = true
-      return true
+      console.debug('[JABA] [existsInArray] => [' + nodeName + ' Matched.] [' + arrayItem + ' == ' + domItem + ']')
     } else {
-      console.debug('[JABA] [existsInArray] => No Match. ' + arrayItem + ' != ' + domItem + '')
-      return false
+      console.debug('[JABA] [existsInArray] => No Match found for [' + nodeName + '] ' + arrayItem + ' != ' + domItem + '')
     }
   })
-  return check
+  return nodeName
 }
