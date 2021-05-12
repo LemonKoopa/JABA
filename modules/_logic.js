@@ -1,73 +1,102 @@
-class _generic {
+class _logic extends _generic {
   constructor() {
-
-    // Global values
-    this.Volume = null
-    this.Shuffle = null
-    this.Loop = null
-    this.isPlaying = null
-    this.isInactive = null
-    this.Advertisement = null
-
-    // Track-specific values
-    this.Artist = null
-    this.Title = null
-    this.Duration = null
-    this.Position = null
-
-    // Initialize Timestamp
-    this.Timestamp = null
-
-    // Initialize History
-    this.history = {}
+    super()
 
   }
 
-  // Callable Functions - History
-  updateHistory() {
-    let keyBlacklist = [ 'history', 'elementSelector' ]
-    Object.entries(this).forEach(entry => {
-      let entryKey = entry[0]
-      let entryValue = entry[1]
-      if (keyBlacklist.includes(entryKey)) { return }
-      if (this['entryKey'] == entryValue) { return }
-      this.history[entryKey] = entryValue
+  currentAction() {
+
+    let strStates = '[currentAction] '
+    let timePlayed = 0
+
+    Object.entries(this.hasChanged()).forEach(item => {
+			let entry = { 'Key': item[0], 'Value': item[1][0], 'oldValue': item[1][1] }
+
+      switch (entry.Key) {
+        case 'Volume':
+          strStates +=
+          '[Status: Volume (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          break
+
+        case 'Shuffle':
+          strStates +=
+          '[Status: Shuffle (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          break
+
+        case 'Loop':
+          strStates +=
+          '[Status: Loop (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          break
+
+        case 'isPlaying':
+          strStates +=
+          '[Status: Playing (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          break
+
+        case 'isInactive':
+          strStates +=
+          '[Status: Inactive (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          break
+
+        case 'Advertisement':
+          strStates +=
+          '[Status: Advertisement (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          break
+
+        case 'Artist':
+          strStates +=
+          '[Status: Artist (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          break
+
+        case 'Title':
+          strStates +=
+          '[Status: Title (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          break
+
+        case 'Position':
+          let Timestamp = { 'now': new Date(), 'old': this.history.Timestamp }
+          let Position = { 'now': entry.Value, 'old': entry.oldValue }
+          let Duration = { 'now': this.Duration, 'old': this.history.Duration }
+          // Time in MS since last update
+          Timestamp.difference = Math.abs(Timestamp.now - Timestamp.old)
+					Position.difference = (Math.abs(Position.now - Position.old)) * 1000 - 750
+
+          if (
+            Position.old >= 5 &&
+            Position.now <= 5 ) {
+            strStates +=
+            '[Status: Track Change] '
+            strStates +=
+            '[Request: Update statistics] '
+            strStates +=
+            '[Request: Upload to cloud] '
+          }
+          else if (
+            Timestamp.difference <= Position.difference &&
+            Position.now != 0 &&
+            Position.old != Duration.old &&
+            Position.old != 0 ) {
+            strStates +=
+            '[Status: Track Skim (TDiff=' + Position.difference + ')] '
+          }
+          if (
+            Position.now == 0 &&
+            this.isPlaying == false ) {
+            strStates +=
+            '[Status: Not Active] '
+          }
+          break
+
+        case 'Duration':
+          break
+
+      }
+
     })
 
-  }
-
-  // Callable Functions - History - Update values from DOM
-  valuesUpdate() {
-    this.updateHistory()
-
-    this.Volume = this.getVolume()
-    this.Shuffle = this.getShuffle()
-    this.Loop = this.getLoop()
-    this.isPlaying = this.getIsPlaying()
-    this.isInactive = this.getIsInactive()
-    this.Advertisement = this.getAdvertisement()
-    this.Artist = this.getArtist()
-    this.Title = this.getTitle()
-    this.Position = this.getPosition()
-    this.Duration = this.getDuration()
-    this.Timestamp = new Date()
+    return strStates
 
   }
 
-  // Returns an object array of changed values { key: 'newValue', 'oldValue' }
-  hasChanged() {
-    let changedValues = []
-    let keyBlacklist = ['history', 'elementSelector', 'Timestamp' ]
-    Object.entries(this).forEach(entry => {
-      let entryKey = entry[0]
-      let entryValue = entry[1]
-      let historyValue = this.history[entryKey]
-			if ( keyBlacklist.includes(entryKey) ) { return }
-      if ( entryValue == historyValue ) { return }
-      if ( entryValue == historyValue.toString() ) { return }
-      changedValues[entryKey] = [entryValue, historyValue]
-    })
-    return changedValues
-  }
 
 }

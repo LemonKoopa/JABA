@@ -1,28 +1,28 @@
 class playerSpotify extends _logic {
   constructor() {
     super()
+
     // Queries
     this.elementSelector = {
-      'elementReady': 'div[data-testid="playlist-tracklist"]',
-      'elementContainer': 'div[class="Root__now-playing-bar"]',
-      'elementNowPlaying': 'div[class="Root__now-playing-bar"]',
-      'Volume': 'button[aria-label="Change volume"]',
-      'Shuffle': 'button[data-testid="control-button-shuffle"]',
-      'Loop': 'button[data-testid="control-button-repeat"]',
-      'isPlaying': 'title',
-      'isInactive': 'div[data-testid="now-playing-widget"]',
-      'Advertisement': 'a[data-testid="track-info-advertiser"]',
-      'Artist': 'div[data-testid="track-info-artists"]',
-      'Title': 'a[data-testid="nowplaying-track-link"]',
-      'Position': 'div[data-testid="playback-position"]',
-      'Duration': 'div[data-testid="playback-duration"]',
-      'buttonVolume': 'button[aria-label="Change volume"]',
-      'buttonShuffle': 'button[data-testid="control-button-shuffle"]',
-      'buttonLoop': 'button[data-testid="control-button-repeat"]',
-      'buttonPrevious': 'button[aria-label="Previous"]',
-      'buttonPause': 'button[data-testid="control-button-pause"]',
-      'buttonPlay': 'button[data-testid="control-button-play"]',
-      'buttonNext': 'button[data-testid="control-button-skip-forward"]',
+      'elementReady':       'div[data-testid="playlist-tracklist"]',
+      'elementNowPlaying':  'div[class="Root__now-playing-bar"]',
+      'Volume':             'button[aria-label="Change volume"]',
+      'Shuffle':            'button[data-testid="control-button-shuffle"]',
+      'Loop':               'button[data-testid="control-button-repeat"]',
+      'isPlaying':          'title',
+      'isInactive':         'div[data-testid="now-playing-widget"]',
+      'Advertisement':      'a[data-testid="track-info-advertiser"]',
+      'Artist':             'div[data-testid="track-info-artists"]',
+      'Title':              'a[data-testid="nowplaying-track-link"]',
+      'Position':           'div[data-testid="playback-position"]',
+      'Duration':           'div[data-testid="playback-duration"]',
+      'buttonVolume':       'button[aria-label="Change volume"]',
+      'buttonShuffle':      'button[data-testid="control-button-shuffle"]',
+      'buttonLoop':         'button[data-testid="control-button-repeat"]',
+      'buttonPrevious':     'button[aria-label="Previous"]',
+      'buttonPause':        'button[data-testid="control-button-pause"]',
+      'buttonPlay':         'button[data-testid="control-button-play"]',
+      'buttonNext':         'button[data-testid="control-button-skip-forward"]',
       'buttonPlaylistPlay': 'button[data-testid="play-button"]'
     }
 
