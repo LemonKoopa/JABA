@@ -1,26 +1,27 @@
 var timerPlayback = {
-  // Tick
-  timer: null, // timer object
-  now: 0, // current elapsed time
-  tick: function() {
-    timerPlayback.now++
-  },
+  startDate: null,
+  endDate: null,
+  elapsedSeconds: 0,
   // Start
   start: function() {
-    timerPlayback.timer = setInterval(timerPlayback.tick, 1000)
+    timerPlayback.startDate = new Date()
   },
   // Stop
   stop: function() {
-    clearInterval(timerPlayback.timer);
-    timerPlayback.timer = null
+    if (timerPlayback.startDate == null) { timerPlayback.startDate = new Date() }
+    timerPlayback.endDate = new Date()
+    let elapsedTime = 0
+    elapsedTime = ( timerPlayback.endDate - timerPlayback.startDate )
+    elapsedTime /= 1000
+    timerPlayback.elapsedSeconds += Math.round(elapsedTime)
   },
   // Reset
   reset: function() {
-    if (timerPlayback.timer != null) {
+    if (timerPlayback.endDate != null) {
       timerPlayback.stop()
     }
-    timerPlayback.now = -1
-    timerPlayback.tick()
+    timerPlayback.elapsedSeconds = 0
+    timerPlayback.startDate = new Date()
   }
 }
 

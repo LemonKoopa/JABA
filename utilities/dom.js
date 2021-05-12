@@ -22,22 +22,16 @@ let elementCacheArray = {'': ''}
 
 function cacheObject(Selector) {
   let objectValue = null
-  if (elementCacheArray.hasOwnProperty(Selector)) {
+  if (elementCacheArray.hasOwnProperty(Selector) &&
+      elementCacheArray[Selector] != null &&
+      !Selector.includes('playbackSoundBadge')
+     ) {
     objectValue = elementCacheArray[Selector]
-    if (objectValue == null) {
-      objectValue = document.querySelector(Selector)
-      console.debug('[JABA] [cacheObject] [SUCCESS] (' + Selector + ') is cached but null | re-fetching  => ' + objectValue + '')
-    } else {
-      console.debug('[JABA] [cacheObject] [SUCCESS] (' + Selector + ') is cached | returning cached  => ' + objectValue + '')
-    }
+    //console.debug('[JABA] [getElementBySelector] [cached] [SUCCESS] => (' + Selector + ') DOM: ', objectValue)
   } else {
-    try {
-      objectValue = document.querySelector(Selector)
-      elementCacheArray[Selector] = objectValue
-      console.debug('[JABA] [cacheObject] [SUCCESS] (' + Selector + ') is not cached | Caching and returning => ' + objectValue + '')
-    } catch(error) {
-      console.debug('[JABA] [cacheObject] [ERROR=' + error + '] => ' + error + '')
-    }
+    objectValue = document.querySelector(Selector)
+    elementCacheArray[Selector] = objectValue
+    //console.debug('[JABA] [getElementBySelector] [uncached] [SUCCESS] => (' + Selector + ')')
   }
   return objectValue
 }
@@ -45,8 +39,8 @@ function cacheObject(Selector) {
 function getElementBySelector(Selector) {
   let element = null
   try {
-    //element = cacheObject(Selector)
-    element = document.querySelector(Selector)
+    element = cacheObject(Selector)
+    //element = document.querySelector(Selector)
     //console.debug('[JABA] [getElementBySelector] [SUCCESS] => (' + Selector + ')')
   } catch(error) {
     //console.debug('[JABA] [getElementBySelector] [ERROR=' + error + '] => (' + Selector + ')')

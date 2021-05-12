@@ -13,7 +13,7 @@ class playerSoundCloud extends _logic {
       'isInactive':         'div[class="playbackSoundBadge__titleContextContainer"]',
       'Advertisement':      'a[data-testid="track-info-advertiser"]',
       'Artist':             'a[class*="playbackSoundBadge__lightLink"]',
-      'Title':              'div[class*="playbackSoundBadge__title"] > a:nth-child(1) > span:nth-child(2)',
+      'Title':              'a[class*="playbackSoundBadge__titleLink"]',
       'Position':           'div[class="playbackTimeline__progressWrapper"]',
       'Duration':           'div[class="playbackTimeline__progressWrapper"]',
       'buttonVolume':       'div[aria-label="Volume"]',
@@ -81,7 +81,7 @@ class playerSoundCloud extends _logic {
     return getElementBySelector(this.elementSelector.Artist).title
   }
   getTitle() {
-    return getElementBySelector(this.elementSelector.Title).innerText
+    return getElementBySelector(this.elementSelector.Title).title
   }
   getPosition() {
     return getElementBySelector(this.elementSelector.Position).getAttribute('aria-valuenow')
