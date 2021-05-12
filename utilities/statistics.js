@@ -73,8 +73,10 @@ class Statistics {
   }
 
   upload() {
-    console.debug('[JABA] [Statistics] [Upload] Attemping to send JSON Statistics to cloud...')
-    console.info('[JABA] [Statistics] [Upload] Sending! JSON > ', this.data)
+    console.debug(
+      '[JABA] [Statistics] [Upload] Attemping to send JSON Statistics to cloud...')
+    console.debug(
+      '[JABA] [Statistics] [Upload] Sending! JSON > ', this.data)
     GM.xmlHttpRequest({
       method: "POST",
       url: "http://emmett-brown.com/debugger/json.php",
