@@ -14,10 +14,10 @@ class _generic {
     this.Title = null
     this.Duration = null
     this.Position = null
-	
+
     // Initialize Timestamp
     this.Timestamp = null
-    
+
     // Initialize History
     this.history = {}
 
@@ -34,7 +34,7 @@ class _generic {
     })
 
   }
-    
+
   // Callable Functions - History - Update values from DOM
   valuesUpdate() {
     this.updateHistory()
@@ -51,7 +51,7 @@ class _generic {
     this.Duration = this.getDuration()
     this.Timestamp = new Date()
   }
- 
+
   // Returns an object array of changed values { key: 'newValue', 'oldValue' }
   hasChanged() {
     let changedValues = []

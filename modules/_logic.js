@@ -29,8 +29,15 @@ class _logic extends _generic {
           break
 
         case 'isPlaying':
-          strStates +=
-          '[Status: Playing (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          if ( entry.Value ) {
+            strStates +=
+              '[Status: Playing] '
+          }
+          else {
+            strStates +=
+              '[Status: Paused] '
+          }
+
           break
 
         case 'isInactive':
@@ -63,13 +70,14 @@ class _logic extends _generic {
 
           if (
             Position.old >= 5 &&
-            Position.now <= 5 ) {
+            Position.now <= 5 ){
             strStates +=
             '[Status: Track Change] '
             strStates +=
             '[Request: Update statistics] '
             strStates +=
             '[Request: Upload to cloud] '
+
           }
           else if (
             Timestamp.difference <= Position.difference &&
