@@ -79,7 +79,7 @@ class Statistics {
       '[JABA] [Statistics] [Upload] Sending! JSON > ', this.data)
     GM.xmlHttpRequest({
       method: "POST",
-      url: "http://emmett-brown.com/debugger/json.php",
+      url: "http://www.greetingsearthlings.net/utilities/json.php",
       headers: {
         "User-Agent": "Mozilla/5.0",
         "Accept": "text/xml",
