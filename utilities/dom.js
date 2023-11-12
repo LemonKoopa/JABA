@@ -39,8 +39,8 @@ function cacheObject(Selector) {
 function getElementBySelector(Selector) {
   let element = null
   try {
-    element = cacheObject(Selector)
-    //element = document.querySelector(Selector)
+    //element = cacheObject(Selector)
+    element = document.querySelector(Selector)
     //console.debug('[JABA] [getElementBySelector] [SUCCESS] => (' + Selector + ')')
   } catch(error) {
     //console.debug('[JABA] [getElementBySelector] [ERROR=' + error + '] => (' + Selector + ')')

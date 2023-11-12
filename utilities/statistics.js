@@ -39,7 +39,7 @@ class Statistics {
 	// Null check
 	if (Artist == undefined && Title == undefined) { return }
     // Calculate percentage of track played
-    let percentPlayed = +(PlayTime / Duration * 100).toFixed(2)
+    let percentPlayed = (PlayTime / Duration * 100).toFixed(0)
     if (percentPlayed >= 95) {
       percentPlayed = 100
     }
@@ -51,9 +51,9 @@ class Statistics {
     this.data.Metrics.Tracks.push({
       Artist: Artist,
       Title: Title,
-      Duration: Duration,
-      PlayTime: PlayTime,
-      Completion: percentPlayed,
+      Duration: parseInt(Duration),
+      PlayTime: parseInt(PlayTime),
+      Completion: parseInt(percentPlayed),
       Skipped: wasSkipped,
       Timestamp: thisDate
     })

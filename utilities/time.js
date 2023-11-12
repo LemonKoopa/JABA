@@ -2,13 +2,17 @@ var timerPlayback = {
   startDate: null,
   endDate: null,
   elapsedSeconds: 0,
+  currentlyActive: false,
   // Start
   start: function() {
+    currentlyActive = true
     timerPlayback.startDate = new Date()
   },
   // Stop
   stop: function() {
     if (timerPlayback.startDate == null) { timerPlayback.startDate = new Date() }
+    if (!currentlyActive) { return } // If already stopped do not re-calculate
+    currentlyActive = false
     timerPlayback.endDate = new Date()
     let elapsedTime = 0
     elapsedTime = ( timerPlayback.endDate - timerPlayback.startDate )
