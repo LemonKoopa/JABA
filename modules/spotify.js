@@ -65,7 +65,7 @@ class playerSpotify extends _logic {
     return getElementBySelector(this.elementSelector.Loop).getAttribute('aria-checked') === "mixed"
   }
   getIsPlaying() {
-    return !!document.title.includes(' · ')
+    return !!document.title.includes(' • ')
   }
   getIsInactive() {
     return !getElementBySelector(this.elementSelector.isInactive)
