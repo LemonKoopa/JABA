@@ -1,3 +1,5 @@
+let currentlyActive = null;
+
 var timerPlayback = {
   startDate: null,
   endDate: null,
