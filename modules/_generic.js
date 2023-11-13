@@ -2,6 +2,7 @@ class _generic {
   constructor() {
 
     // Global values
+    this.Username = null
     this.Volume = null
     this.Shuffle = null
     this.Loop = null
@@ -39,6 +40,7 @@ class _generic {
   valuesUpdate() {
     this.updateHistory()
 
+    this.Username = this.getUsername()
     this.Volume = this.getVolume()
     this.Shuffle = this.getShuffle()
     this.Loop = this.getLoop()

@@ -3,6 +3,7 @@ class Statistics {
     // Create object array template
     this.template = {
       "Metrics": {
+        "Username": 0,
         "Plays": 0,
         "Time": 0,
         "Skips": 0,
@@ -35,7 +36,7 @@ class Statistics {
 
   }
 
-  addEvent(Artist, Title, Duration, PlayTime) {
+  addEvent(Username, Artist, Title, Duration, PlayTime) {
 	// Null check
 	if (Artist == undefined && Title == undefined) { return }
     // Calculate percentage of track played
@@ -58,6 +59,8 @@ class Statistics {
       Timestamp: thisDate
     })
     // Add to Global Metrics
+    // Add to Global Metrics - Username
+    this.data.Metrics.Username = Username
     // Add to Global Metrics - Skips
     if (!!wasSkipped) {
       this.data.Metrics.Skips += 1
@@ -79,7 +82,7 @@ class Statistics {
       '[JABA] [Statistics] [Upload] Sending! JSON > ', this.data)
     GM.xmlHttpRequest({
       method: "POST",
-      url: "http://www.greetingsearthlings.net/utilities/json.php",
+      url: "https://www.greetingsearthlings.net/utilities/json.php",
       headers: {
         "User-Agent": "Mozilla/5.0",
         "Accept": "text/xml",

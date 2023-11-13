@@ -4,6 +4,7 @@ class playerSpotify extends _logic {
 
     // Queries
     this.elementSelector = {
+      'userName':           'button[data-testid="user-widget-link"]',
       'elementReady':       'div[data-testid="playlist-tracklist"]',
       'elementNowPlaying':  'footer[data-testid="now-playing-bar"]',
       'Volume':             'div[data-testid="volume-bar"]',
@@ -55,6 +56,9 @@ class playerSpotify extends _logic {
   }
 
   // Callable Functions - Update Stats - Global Value
+  getUsername() {
+  	return getElementBySelector(this.elementSelector.userName).getAttribute('aria-label') 
+  }
   getVolume() {
     return getElementBySelector(this.elementSelector.Volume).getAttribute('style').slice(6).split("%")[0].split(".")[0]
   }

@@ -50,6 +50,11 @@ class _logic extends _generic {
           '[Status: Advertisement (' + entry.oldValue + ' > ' + entry.Value + ')] '
           break
 
+        case 'Username':
+          strStates +=
+          '[Status: Username (' + entry.oldValue + ' > ' + entry.Value + ')] '
+          break
+          
         case 'Artist':
           strStates +=
           '[Status: Artist (' + entry.oldValue + ' > ' + entry.Value + ')] '
