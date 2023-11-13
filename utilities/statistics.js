@@ -48,6 +48,8 @@ class Statistics {
     let wasSkipped = (percentPlayed !== 100)
     // Create a Date timestamp
     let thisDate = new Date().toISOString()
+    // Erase Previous Track History (Dont keep running log)
+    this.data.Metrics.Tracks = []
     // Push the track information to the statistics
     this.data.Metrics.Tracks.push({
       Artist: Artist,
