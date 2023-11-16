@@ -9,6 +9,7 @@ var timerPlayback = {
   start: function() {
     currentlyActive = true
     timerPlayback.startDate = new Date()
+    console.debug('[JABA] [timerPlayback] [Action=Start] [startDate=' + timerPlayback.startDate + '] [Elapsed=' + timerPlayback.elapsedSeconds + ']')
   },
   // Stop
   stop: function() {
@@ -20,6 +21,7 @@ var timerPlayback = {
     elapsedTime = ( timerPlayback.endDate - timerPlayback.startDate )
     elapsedTime /= 1000
     timerPlayback.elapsedSeconds += Math.round(elapsedTime)
+    console.debug('[JABA] [timerPlayback] [Action=Stop] [startDate=' + timerPlayback.startDate + '] [Elapsed=' + timerPlayback.elapsedSeconds + ']')
   },
   // Reset
   reset: function() {
@@ -28,6 +30,7 @@ var timerPlayback = {
     }
     timerPlayback.elapsedSeconds = 0
     timerPlayback.startDate = new Date()
+    console.debug('[JABA] [timerPlayback] [Action=Reset] [startDate=' + timerPlayback.startDate + '] [Elapsed=' + timerPlayback.elapsedSeconds + ']')
   }
 }
 
